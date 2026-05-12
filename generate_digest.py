@@ -216,17 +216,17 @@ def generate_html(articles_by_topic: dict) -> str:
 
     body {{
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #f4f5f7;
-      color: #1a1a2e;
+      background: #F0F0F0;
+      color: #012E48;
       line-height: 1.6;
     }}
 
     /* ── Header ────────────────────────────────── */
     header {{
-      background: #1a1a2e;
+      background: #012E48;
       color: #fff;
       padding: 2rem 2rem 1.5rem;
-      border-bottom: 3px solid #e63946;
+      border-bottom: 3px solid #0272B4;
     }}
     .header-inner {{ max-width: 1100px; margin: 0 auto; }}
     .header-eyebrow {{
@@ -234,7 +234,7 @@ def generate_html(articles_by_topic: dict) -> str:
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #e63946;
+      color: #E6F3FA;
       margin-bottom: 0.4rem;
     }}
     header h1 {{
@@ -259,8 +259,8 @@ def generate_html(articles_by_topic: dict) -> str:
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #6b7280;
-      border-bottom: 2px solid #e5e7eb;
+      color: #01446C;
+      border-bottom: 2px solid #CFE9FB;
       padding-bottom: 0.45rem;
       margin-bottom: 1rem;
     }}
@@ -276,14 +276,15 @@ def generate_html(articles_by_topic: dict) -> str:
       background: #fff;
       border-radius: 8px;
       padding: 1.1rem 1.3rem 1rem;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #E0E0E0;
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
-      transition: box-shadow 0.15s ease, transform 0.15s ease;
+      transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
     }}
     .card:hover {{
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 18px rgba(1,46,72,0.10);
+      border-color: #CFE9FB;
       transform: translateY(-1px);
     }}
 
@@ -292,7 +293,7 @@ def generate_html(articles_by_topic: dict) -> str:
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #e63946;
+      color: #0272B4;
     }}
 
     .card-title {{
@@ -301,14 +302,14 @@ def generate_html(articles_by_topic: dict) -> str:
       line-height: 1.4;
     }}
     .card-title a {{
-      color: #1a1a2e;
+      color: #012E48;
       text-decoration: none;
     }}
-    .card-title a:hover {{ color: #e63946; }}
+    .card-title a:hover {{ color: #0272B4; }}
 
     .card-summary {{
       font-size: 0.83rem;
-      color: #6b7280;
+      color: #01446C;
       line-height: 1.55;
       flex: 1;
     }}
@@ -316,7 +317,7 @@ def generate_html(articles_by_topic: dict) -> str:
     .read-more {{
       font-size: 0.78rem;
       font-weight: 600;
-      color: #e63946;
+      color: #025B90;
       text-decoration: none;
       margin-top: auto;
       padding-top: 0.25rem;
@@ -328,8 +329,8 @@ def generate_html(articles_by_topic: dict) -> str:
       text-align: center;
       padding: 2rem 1rem;
       font-size: 0.78rem;
-      color: #9ca3af;
-      border-top: 1px solid #e5e7eb;
+      color: #01446C;
+      border-top: 1px solid #CFE9FB;
       margin-top: 1rem;
     }}
 
@@ -354,7 +355,7 @@ def generate_html(articles_by_topic: dict) -> str:
   </main>
 
   <footer>
-    Auto-generated daily for the Applause Marketing Team &nbsp;·&nbsp; {date_str}
+    Auto-generated daily for the Applause Marketing Team &nbsp;·&nbsp; Owned by Dana Prey &nbsp;·&nbsp; {date_str}
   </footer>
 </body>
 </html>
