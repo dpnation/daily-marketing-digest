@@ -211,6 +211,7 @@ def generate_html(articles_by_topic: dict) -> str:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Marketing Digest — {date_str}</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
