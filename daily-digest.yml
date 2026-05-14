@@ -36,4 +36,5 @@ jobs:
           git add index.html
           # Only commit if index.html actually changed
           git diff --cached --quiet || git commit -m "Daily digest: $(date +'%Y-%m-%d')"
+          git pull --rebase origin main
           git push
