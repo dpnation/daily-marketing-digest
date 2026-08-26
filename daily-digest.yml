@@ -17,7 +17,6 @@ permissions:
 jobs:
   generate-digest:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,7 +37,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          # Only commit if index.html actually changed
-          git diff --cached --quiet || git commit -m "Daily digest: $(date +'%Y-%m-%d')"
+
+          if git diff --cached --quiet; then
+            echo "No changes to index.html — nothing to commit today."
+            exit 0
+          fi
+
+          git commit -m "Daily digest: $(date +'%Y-%m-%d')"
           git pull --rebase origin main
-          git push
+
+          if ! git push; then
+            echo "::error::git push failed — the digest did NOT update. This almost always means repo Workflow permissions got reset to read-only. Go to Settings > Actions > General > Workflow permissions and select 'Read and write permissions', then re-run this workflow."
+            exit 1
+          fi
+
+          echo "✅ Digest pushed successfully for $(date +'%Y-%m-%d')."
