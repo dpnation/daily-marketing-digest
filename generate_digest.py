@@ -370,7 +370,7 @@ def generate_html(articles_by_topic: dict) -> str:
   </main>
 
   <footer>
-    curated daily by <a href="https://danaprey.com" target="_blank" rel="noopener">dana prey</a> · {date_str}
+    curated daily by <a href="https://dpnation.com" target="_blank" rel="noopener">dpnation</a> · {date_str}
   </footer>
 </body>
 </html>
