@@ -211,59 +211,68 @@ def generate_html(articles_by_topic: dict) -> str:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Marketing Digest — {date_str}</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
+    /* dpnation brand: Ink #0D0D0D, Canvas #F7F6F3, Mist #EBEBEB, Smoke #7A7A7A, Spark #FF8C69 */
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
     body {{
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #F0F0F0;
-      color: #012E48;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #F7F6F3;
+      color: #0D0D0D;
       line-height: 1.6;
     }}
 
     /* ── Header ────────────────────────────────── */
     header {{
-      background: #012E48;
-      color: #fff;
-      padding: 2rem 2rem 1.5rem;
-      border-bottom: 3px solid #0272B4;
+      background: #0D0D0D;
+      color: #FFFFFF;
+      padding: 2.25rem 2rem 1.75rem;
+      border-bottom: 3px solid #FF8C69;
     }}
     .header-inner {{ max-width: 1100px; margin: 0 auto; }}
     .header-eyebrow {{
+      font-family: "JetBrains Mono", ui-monospace, monospace;
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 500;
       letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #E6F3FA;
-      margin-bottom: 0.4rem;
+      text-transform: lowercase;
+      color: #FF8C69;
+      margin-bottom: 0.5rem;
     }}
     header h1 {{
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
+      font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
     }}
-    .header-date {{ font-size: 0.88rem; color: #9aa5b4; }}
+    .header-date {{
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.8rem;
+      color: #EBEBEB;
+    }}
 
     /* ── Main ──────────────────────────────────── */
     main {{
       max-width: 1100px;
-      margin: 2rem auto;
+      margin: 2.25rem auto;
       padding: 0 1.5rem;
     }}
 
     /* ── Topic sections ────────────────────────── */
-    .topic-section {{ margin-bottom: 2.5rem; }}
+    .topic-section {{ margin-bottom: 2.75rem; }}
 
     .topic-heading {{
-      font-size: 0.78rem;
+      font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+      font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #01446C;
-      border-bottom: 2px solid #CFE9FB;
-      padding-bottom: 0.45rem;
-      margin-bottom: 1rem;
+      color: #0D0D0D;
+      border-bottom: 1px solid #EBEBEB;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.1rem;
     }}
 
     /* ── Cards ─────────────────────────────────── */
@@ -274,80 +283,85 @@ def generate_html(articles_by_topic: dict) -> str:
     }}
 
     .card {{
-      background: #fff;
+      background: #FFFFFF;
       border-radius: 8px;
-      padding: 1.1rem 1.3rem 1rem;
-      border: 1px solid #E0E0E0;
+      padding: 1.15rem 1.3rem 1rem;
+      border: 1px solid #EBEBEB;
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
       transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
     }}
     .card:hover {{
-      box-shadow: 0 6px 18px rgba(1,46,72,0.10);
-      border-color: #CFE9FB;
+      box-shadow: 0 6px 18px rgba(13,13,13,0.08);
+      border-color: #FF8C69;
       transform: translateY(-1px);
     }}
 
     .card-source {{
+      font-family: "JetBrains Mono", ui-monospace, monospace;
       font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #0272B4;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+      color: #7A7A7A;
     }}
 
     .card-title {{
-      font-size: 0.93rem;
-      font-weight: 600;
+      font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+      font-size: 0.97rem;
+      font-weight: 700;
       line-height: 1.4;
     }}
     .card-title a {{
-      color: #012E48;
+      color: #0D0D0D;
       text-decoration: none;
     }}
-    .card-title a:hover {{ color: #0272B4; }}
+    .card-title a:hover {{ color: #FF8C69; }}
 
     .card-summary {{
-      font-size: 0.83rem;
-      color: #01446C;
+      font-size: 0.85rem;
+      color: #7A7A7A;
       line-height: 1.55;
       flex: 1;
     }}
 
     .read-more {{
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      color: #025B90;
+      color: #0D0D0D;
       text-decoration: none;
+      border-bottom: 2px solid #FF8C69;
+      align-self: flex-start;
       margin-top: auto;
-      padding-top: 0.25rem;
     }}
-    .read-more:hover {{ text-decoration: underline; }}
+    .read-more:hover {{ color: #FF8C69; }}
 
     /* ── Footer ────────────────────────────────── */
     footer {{
       text-align: center;
       padding: 2rem 1rem;
-      font-size: 0.78rem;
-      color: #01446C;
-      border-top: 1px solid #CFE9FB;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.75rem;
+      color: #7A7A7A;
+      border-top: 1px solid #EBEBEB;
       margin-top: 1rem;
     }}
+    footer a {{ color: #0D0D0D; text-decoration: none; border-bottom: 1px solid #FF8C69; }}
 
     /* ── Responsive ────────────────────────────── */
     @media (max-width: 600px) {{
       .cards-grid {{ grid-template-columns: 1fr; }}
-      header h1 {{ font-size: 1.35rem; }}
+      header h1 {{ font-size: 1.5rem; }}
     }}
   </style>
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <div class="header-eyebrow">Applause Marketing</div>
+      <div class="header-eyebrow">dpnation</div>
       <h1>Daily Marketing Digest</h1>
-      <div class="header-date">{day_str}, {date_str} &nbsp;·&nbsp; {total} stories</div>
+      <div class="header-date">{day_str}, {date_str} · {total} stories</div>
     </div>
   </header>
 
@@ -356,7 +370,7 @@ def generate_html(articles_by_topic: dict) -> str:
   </main>
 
   <footer>
-    Auto-generated daily for the Applause Marketing Team &nbsp;·&nbsp; Owned by Dana Prey &nbsp;·&nbsp; {date_str}
+    curated daily by <a href="https://danaprey.com" target="_blank" rel="noopener">dana prey</a> · {date_str}
   </footer>
 </body>
 </html>
