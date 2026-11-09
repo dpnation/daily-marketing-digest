@@ -2,8 +2,12 @@ name: Daily Marketing Digest
 
 on:
   schedule:
-    # Runs at 12:00 UTC = 8:00 AM ET every day
-    - cron: "0 12 * * *"
+    # GitHub often starts scheduled jobs hours late, especially on the hour.
+    # Three off-the-hour attempts so at least one lands before the morning briefing.
+    # (ET = UTC-5 in winter, UTC-4 in summer.) Later runs just refresh the page with any new stories.
+    - cron: "17 6 * * *"
+    - cron: "43 8 * * *"
+    - cron: "37 10 * * *"
   # Allow manual trigger from the GitHub Actions tab
   workflow_dispatch:
 
@@ -17,7 +21,6 @@ permissions:
 jobs:
   generate-digest:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,7 +41,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          # Only commit if index.html actually changed
-          git diff --cached --quiet || git commit -m "Daily digest: $(date +'%Y-%m-%d')"
+
+          if git diff --cached --quiet; then
+            echo "No changes to index.html — nothing to commit today."
+            exit 0
+          fi
+
+          git commit -m "Daily digest: $(date +'%Y-%m-%d')"
           git pull --rebase origin main
-          git push
+
+          if ! git push; then
+            echo "::error::git push failed — the digest did NOT update. This almost always means repo Workflow permissions got reset to read-only. Go to Settings > Actions > General > Workflow permissions and select 'Read and write permissions', then re-run this workflow."
+            exit 1
+          fi
+
+          echo "✅ Digest pushed successfully for $(date +'%Y-%m-%d')."
