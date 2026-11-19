@@ -93,6 +93,9 @@ FEEDS = [
     },
 ]
 
+# Skip stories older than this, so slow-posting feeds don't repeat old items
+MAX_AGE_DAYS = 5
+
 TOPIC_ORDER = [
     "Product Marketing",
     "AI & Marketing Tech",
@@ -135,7 +138,16 @@ def fetch_feed(feed_config: dict) -> list[dict]:
     articles = []
     try:
         feed = feedparser.parse(feed_config["url"])
-        for entry in feed.entries[: feed_config["max_items"]]:
+        cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=MAX_AGE_DAYS)
+        fresh = []
+        for entry in feed.entries:
+            published = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
+            if published:
+                published_dt = datetime.datetime(*published[:6], tzinfo=datetime.timezone.utc)
+                if published_dt < cutoff:
+                    continue
+            fresh.append(entry)
+        for entry in fresh[: feed_config["max_items"]]:
             # Pull the best available summary text
             summary = ""
             for attr in ("summary", "description", "content"):
